@@ -14,3 +14,7 @@ This is a style editor in Python with a few main features:
 
 
 NOTE: You may need to install modules
+
+Command to open Pithon via terminal or vscode:
+
+python3 pithon.py
