@@ -36,11 +36,14 @@ l2 = Label(text='')
 l2.grid(row=1, column=0)
 
 def run_code():
+    
     code = text.get("1.0", "end")
-    scope = {}
     scope = {}
     exec('from tkinter import *', scope, scope)
     exec('from tkinter.filedialog import *', scope, scope)
+    exec('from tkinter.scrolledtext import ScrolledText', scope, scope)
+    exec('from pygments import lex', scope, scope)
+    exec('from pygments.lexers import PythonLexer', scope, scope)
     try:
         exec(code, scope, scope)
         l2.config(text=' ')
@@ -53,6 +56,7 @@ def run_code():
             text.see('insert')
 
 def find_error_pos(e, scope):
+    
     if isinstance(e, SyntaxError):
         return e.lineno, e.offset - 1
     frame_list = get_frame_list(e)
@@ -60,10 +64,10 @@ def find_error_pos(e, scope):
     for frame, lineno in frame_list:
         if frame.f_globals is scope:
             error_lineno = lineno
-            print(f'lineno={lineno}')
     return error_lineno, 0
 
 def get_frame_list(e):
+    
     tb = e.__traceback__
     frame_list = []
     while tb:
@@ -80,9 +84,10 @@ text.bind("<KeyRelease>", key_event_handler)
 
 
 def highlight():
+    
     for tag in text.tag_names():
         text.tag_delete(tag)
-
+   
     for tag_name, tag_style in TAG_STYLES.items():
         text.tag_configure(tag_name, tag_style)
 
@@ -96,6 +101,7 @@ def highlight():
         text.tag_add(token_name, "range_start", "range_end")
         text.mark_set("range_start", "range_end")
 
+
 entry = Entry(main)
 entry.grid(row=4, column=0)
 
@@ -105,8 +111,8 @@ def open_file():
     deaof = aof.read()
     text.delete("1.0", "end")
     text.insert("1.0", deaof)
-    aof.delete(0, END)
-    aof.insert(0, aof.name)
+    entry.delete(0, END)
+    entry.insert(0, aof.name)
     highlight()
 
 def save_file():
@@ -125,8 +131,9 @@ b2.grid(row=2, column=0)
 b3 = Button(main, text="Save file", command=save_file)
 b3.grid(row=3, column=0)
 
-l1 = Label(main, text="Modules already installed:\ntkinter,\n tkinter.filedialog,\n pygments.lex,\nfrom pygments.lexer PythonLexer")
+l1 = Label(main, text="Modules already installed:\ntkinter,\n tkinter.filedialog,\nfrom tkinter.scrolledtext ScrolledText,\n pygments.lex,\nfrom pygments.lexer PythonLexer")
 l1.grid(row=0, column=2)
 
 highlight()
 main.mainloop()
+
