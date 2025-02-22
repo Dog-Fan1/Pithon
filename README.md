@@ -11,3 +11,6 @@ This is a style editor in Python with a few main features:
 -Open and Save files
 
 -No known bugs
+
+
+NOTE: You may need to install modules
