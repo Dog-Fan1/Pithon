@@ -10,7 +10,7 @@ import json
 main = Tk()
 main.title("Pithon")
 
-image = PhotoImage(file = "/Users/dog/Documents/pithon-logo.png")
+image = PhotoImage(file = "/Documents/pithon-logo.png")
 main.iconphoto(True, image)
 
 TAG_STYLES = {
